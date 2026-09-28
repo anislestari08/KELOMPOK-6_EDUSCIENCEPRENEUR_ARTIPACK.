@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ARTIPACK!</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
+body{font-family:Arial;background:#FFFDF9;color:#1F1F1F;font-size:17px;line-height:1.6}
+nav{background:#fff;padding:14px;text-align:center;position:sticky;top:0;z-index:9;border-bottom:2px solid #FFE0B8}
+nav b{font-size:1.6rem;display:block;margin-bottom:6px}
+nav b span{color:#FF7A00}
+nav a{color:#1F1F1F;margin:0 6px;cursor:pointer;font-weight:600;display:inline-block;padding:8px 12px;border-radius:20px}
+nav a:hover{color:#fff;background:#FF7A00}
+nav a.shop{background:#FF9B2E;color:#fff;padding:9px 18px;border-radius:30px;margin-top:8px;font-weight:700;display:inline-block;box-shadow:0 6px 16px rgba(255,140,26,.35)}
+section{padding:34px 18px;max-width:820px;margin:0 auto}
+h1{font-size:2rem;text-align:center;margin-bottom:12px}
+h1 span{color:#FF7A00}
+h2{font-size:1.6rem;text-align:center;margin-bottom:12px}
+h2 span{color:#FF7A00}
+p{text-align:center;color:#555;margin-bottom:16px}
+.hero{background:#FFF9F0;padding:30px 20px;border-radius:22px;text-align:center;border:2px solid #FFE8CC;box-shadow:0 20px 50px rgba(255,122,0,.12)}
+.hero svg{width:460px;max-width:100%;margin:16px auto;display:block;animation:hf 4s infinite}
+@keyframes hf{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
+.btn{padding:13px 24px;border-radius:28px;border:none;font-weight:700;cursor:pointer;font-size:1rem;margin:4px;font-family:inherit;transition:.3s}
+.bg{background:linear-gradient(135deg,#FF9B2E,#FF7A00);color:#fff;box-shadow:0 8px 20px rgba(255,140,26,.35)}
+.bg:hover{transform:translateY(-2px)}
+.bo{background:#fff;color:#1F1F1F;border:2px solid #1F1F1F}
+.bo:hover{background:#1F1F1F;color:#fff}
+.bw{background:linear-gradient(135deg,#3DD672,#25D366);color:#fff;box-shadow:0 6px 16px rgba(37,211,102,.35)}
+.bw:hover{transform:translateY(-2px)}
+.kartu{background:#fff;border-radius:20px;box-shadow:0 12px 35px rgba(255,122,0,.14);margin-bottom:22px;border:2px solid #FFE0B8;overflow:hidden;transition:.4s}
+.kartu:hover{transform:translateY(-6px);box-shadow:0 25px 55px rgba(255,122,0,.24)}
+.kartu .gbr{background:linear-gradient(180deg,#FFF9F0,#FFE8CC);padding:28px 20px;text-align:center;border-bottom:2px dashed #FF7A00;position:relative}
+.kartu .gbr::before{content:'';position:absolute;top:0;left:0;right:0;height:50%;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.6),transparent 70%);pointer-events:none}
+.kartu .gbr svg{width:300px;max-width:95%;animation:pf 3.5s infinite;filter:drop-shadow(0 12px 20px rgba(180,90,10,.25));position:relative;z-index:1}
+.kartu:nth-child(2) .gbr svg{animation-delay:.3s}
+.kartu:nth-child(3) .gbr svg{animation-delay:.6s}
+.kartu:nth-child(4) .gbr svg{animation-delay:.9s}
+.kartu:nth-child(5) .gbr svg{animation-delay:1.2s}
+@keyframes pf{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.tag{display:inline-block;background:linear-gradient(135deg,#FFB040,#FF8C1A);color:#fff;padding:5px 16px;border-radius:25px;font-weight:800;font-size:.8rem;margin-bottom:10px;box-shadow:0 4px 12px rgba(255,140,26,.30)}
+.body{padding:18px}
+.body h3{font-size:1.25rem;margin-bottom:6px;text-align:center}
+.body .uk{color:#E56A00;font-weight:700;text-align:center;margin-bottom:10px}
+.ukuran{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:10px 0 16px}
+.ukuran button{background:#FFF9F0;border:2px solid #FFE0B8;color:#1F1F1F;padding:8px 14px;border-radius:20px;font-weight:700;cursor:pointer;font-family:inherit;font-size:.9rem;transition:.25s}
+.ukuran button:hover{border-color:#FF9B2E;transform:translateY(-2px)}
+.ukuran button.aktif{background:linear-gradient(135deg,#FF9B2E,#FF7A00);color:#fff;border-color:#FF7A00;box-shadow:0 6px 14px rgba(255,140,26,.4);transform:scale(1.05)}
+.diam{width:100%;padding:10px 12px;border:2px solid #FFE0B8;border-radius:10px;font-family:inherit;font-size:.95rem;margin-bottom:10px;background:#FFFDF9}
+.diam:focus{outline:none;border-color:#FF7A00}
+.body button.tmb{display:block;width:100%;padding:13px;border-radius:10px;border:none;font-weight:800;cursor:pointer;font-size:1rem;margin-bottom:8px;font-family:inherit}
+.op{background:#FFF9F0;padding:26px 18px;border-radius:18px;text-align:center;border:2px solid #FFE8CC;box-shadow:0 15px 35px rgba(255,122,0,.10)}
+.op .st{display:inline-block;padding:9px 22px;border-radius:25px;font-weight:800;margin-bottom:14px}
+.op .open{background:#d4f5dd;color:#1a7f4b;box-shadow:0 6px 14px rgba(50,180,90,.25)}
+.op .closed{background:#fdd;color:#c1121f;box-shadow:0 6px 14px rgba(200,50,50,.2)}
+.op .tm{font-size:1.7rem;font-weight:800}
+.kk{background:#fff;padding:18px;border-radius:14px;text-align:center;margin-bottom:12px;cursor:pointer;border:2px solid #FFE0B8;transition:.35s;box-shadow:0 6px 18px rgba(255,122,0,.08)}
+.kk:hover{border-color:#FF9B2E;transform:translateY(-5px);box-shadow:0 16px 35px rgba(255,122,0,.18)}
+.kk h4{margin-bottom:5px;font-size:1.1rem}
+.kk p{color:#555;font-size:.95rem;margin:0;word-break:break-word}
+.pay{background:#fff;padding:18px;border-radius:14px;margin-bottom:12px;border:2px solid #FFE0B8;transition:.35s;box-shadow:0 6px 18px rgba(255,122,0,.08)}
+.pay:hover{box-shadow:0 16px 35px rgba(255,122,0,.18)}
+.pay h4{color:#FF7A00;font-size:1.1rem;margin-bottom:10px;text-align:center}
+.pay .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed #FFE0B8;flex-wrap:wrap;gap:5px}
+.pay .row strong{font-weight:800;word-break:break-all}
+.pay .copy{background:linear-gradient(135deg,#FF9B2E,#FF7A00);color:#fff;border:none;padding:9px;border-radius:18px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;width:100%;margin-top:9px;box-shadow:0 6px 16px rgba(255,140,26,.30)}
+.free{background:#FFF9F0;padding:18px;border-radius:14px;text-align:center;border:2px dashed #FF7A00;margin-top:18px}
+.free h4{color:#C75400;font-size:1.15rem;margin-bottom:5px}
+footer{background:#1F1F1F;color:#bbb;text-align:center;padding:26px 18px;margin-top:22px;border-top:5px solid #FF7A00}
+footer b{color:#FFB566;font-size:1.4rem}
+.cart{position:fixed;bottom:18px;right:18px;background:linear-gradient(135deg,#FFAB3D,#FF7A00);color:#fff;width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.7rem;cursor:pointer;box-shadow:0 12px 30px rgba(255,140,26,.55);border:4px solid #fff;z-index:998;animation:cenut 1.2s ease-in-out infinite}
+@keyframes cenut{0%,100%{transform:scale(1) rotate(6deg)}50%{transform:scale(1.15) rotate(-6deg)}}
+.cart:hover{transform:scale(1.2) rotate(10deg);animation-play-state:paused}
+.cc{position:absolute;top:-6px;right:-6px;background:#1F1F1F;color:#FFB566;font-size:.8rem;font-weight:800;min-width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 5px;border:3px solid #fff}
+.modal{position:fixed;inset:0;background:rgba(31,31,31,.75);display:none;align-items:center;justify-content:center;z-index:997;padding:18px}
+.modal.show{display:flex}
+.mbox{background:#fff;border-radius:20px;padding:22px;max-width:460px;width:100%;border-top:8px solid #FF7A00;max-height:85vh;overflow-y:auto}
+.mbox h3{text-align:center;margin-bottom:14px;font-size:1.2rem}
+.cl{list-style:none;max-height:280px;overflow-y:auto;margin-bottom:12px}
+.cl li{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:#FFF9F0;border-radius:10px;margin-bottom:6px;font-weight:600;border-left:5px solid #FF7A00;gap:8px;font-size:.92rem}
+.cl li .info{flex:1;min-width:0}
+.cl li .info b{display:block;font-size:.95rem}
+.cl li .info small{display:block;color:#888;font-weight:600;font-size:.78rem}
+.qty{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.qty button{background:#FF9B2E;color:#fff;border:none;border-radius:50%;width:28px;height:28px;font-weight:800;font-size:1.1rem;cursor:pointer;line-height:1;padding:0}
+.qty button:hover{background:#FF7A00}
+.qty .jml{font-weight:800;min-width:22px;text-align:center;color:#1F1F1F}
+.cl li .del{background:#ff5c5c;color:#fff;border:none;border-radius:50%;width:26px;height:26px;cursor:pointer;font-weight:800;flex-shrink:0}
+.tt{text-align:right;font-weight:800;font-size:1.05rem;padding-top:12px;border-top:2px dashed #FFE0B8;margin-bottom:12px}
+.ca{display:flex;gap:8px}
+.ca button{flex:1;padding:12px;border-radius:10px;border:none;font-weight:700;cursor:pointer;font-family:inherit;font-size:.95rem}
+.bc2{background:#eee;color:#1F1F1F}
+.bk{background:linear-gradient(135deg,#3DD672,#25D366);color:#fff}
+.statistik{background:linear-gradient(135deg,#FF9B2E,#FF7A00);color:#fff;padding:20px;border-radius:16px;text-align:center;margin-bottom:20px;box-shadow:0 12px 30px rgba(255,140,26,.4)}
+.statistik .angka{font-size:2.8rem;font-weight:900;line-height:1}
+.rating-box{background:#fff;padding:26px 22px;border-radius:20px;border:2px solid #FFE0B8;text-align:center;margin-bottom:20px;box-shadow:0 15px 40px rgba(255,122,0,.12)}
+.bintang{font-size:2.8rem;display:flex;justify-content:center;gap:10px;margin:12px 0;user-select:none}
+.bintang span{cursor:pointer;filter:grayscale(1) opacity(.35);transition:.25s}
+.bintang span:hover{transform:scale(1.3)}
+.bintang span.aktif{filter:none;transform:scale(1.2);text-shadow:0 0 20px rgba(255,200,0,1)}
+#namaUlasan,#isiUlasan{width:100%;padding:12px;border:2px solid #FFE0B8;border-radius:10px;font-family:inherit;font-size:1rem;margin-bottom:10px;background:#FFFDF9}
+#isiUlasan{min-height:80px;resize:vertical}
+#namaUlasan:focus,#isiUlasan:focus{outline:none;border-color:#FF7A00}
+.ulasan-item{background:#FFF9F0;padding:16px 18px;border-radius:14px;border:2px solid #FFE0B8;margin-bottom:12px;box-shadow:0 6px 18px rgba(255,122,0,.10)}
+.ulasan-item .uh{font-weight:800;margin-bottom:4px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.ulasan-item .ustars{color:#FFB400}
+.ulasan-item .ut{color:#555;font-size:.95rem;text-align:left}
+.ulasan-item .uwaktu{color:#999;font-size:.78rem;text-align:right;margin-top:6px}
+.ulasan-item .ufoto{margin-top:8px;text-align:left}
+.ulasan-item .ufoto img{max-width:100%;max-height:200px;border-radius:10px;border:2px solid #FFE0B8;cursor:pointer;transition:.25s}
+.ulasan-item .ufoto img:hover{transform:scale(1.02);box-shadow:0 8px 20px rgba(255,122,0,.25)}
+.foto-input{display:block;width:100%;padding:10px;border:2px dashed #FFC078;border-radius:10px;font-family:inherit;font-size:.92rem;margin-bottom:10px;background:#FFFDF9;cursor:pointer;text-align:center;font-weight:700;color:#E56A00}
+.foto-input:hover{border-color:#FF7A00;background:#FFF9F0}
+.foto-prev{margin-top:8px;text-align:center}
+.foto-prev img{max-width:100%;max-height:160px;border-radius:10px;border:2px solid #FFE0B8}
+.foto-prev .hapus-foto{background:#ff5c5c;color:#fff;border:none;padding:5px 12px;border-radius:14px;font-size:.82rem;font-weight:700;cursor:pointer;margin-top:6px;font-family:inherit}
+.admin-bar{background:#FFF9F0;padding:12px;border-radius:12px;border:2px dashed #FFC078;margin-bottom:14px;text-align:center;display:none}
+.admin-bar.show{display:block}
+.admin-bar input{width:70%;padding:10px;border:2px solid #FFE0B8;border-radius:10px;font-family:inherit;font-size:.95rem;margin-bottom:8px}
+.admin-bar input:focus{outline:none;border-color:#FF7A00}
+.admin-bar button{background:linear-gradient(135deg,#FF9B2E,#FF7A00);color:#fff;border:none;padding:10px 20px;border-radius:18px;font-weight:800;cursor:pointer;font-family:inherit;font-size:.92rem}
+.admin-bar .info{color:#888;font-size:.82rem;margin-top:6px}
+.admin-toggle{background:transparent;border:none;color:#bbb;font-size:.82rem;cursor:pointer;text-decoration:underline;margin-bottom:14px;font-family:inherit}
+.btn-hapus-ulasan{background:#ff5c5c;color:#fff;border:none;padding:6px 14px;border-radius:14px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px;display:none}
+.ulasan-item.admin .btn-hapus-ulasan{display:inline-block}
+.btn-hapus-ulasan:hover{background:#e63946}
+.falling{position:fixed;top:-120px;font-size:3rem;z-index:9999;pointer-events:none;animation:fall 4s ease-in forwards;opacity:0}
+@keyframes fall{0%{transform:translateY(0) rotate(0deg);opacity:0}10%{opacity:1}25%{transform:translateY(25vh) rotate(90deg)}50%{transform:translateY(50vh) rotate(180deg)}75%{transform:translateY(75vh) rotate(270deg)}100%{transform:translateY(110vh) rotate(360deg);opacity:0}}
+</style>
+</head>
+<body>
+<nav>
+<b>ARTI<span>PACK!</span> 📦</b>
+<div>
+<a href="#home">Beranda</a>
+<a href="#katalog">Katalog</a>
+<a href="#bayar">Pembayaran</a>
+<a href="#jam">Jam Buka</a>
+<a href="#ulasan">⭐ Ulasan</a>
+<a href="#tentang">Tentang</a>
+<a href="#kontak">Kontak</a>
+</div>
+<br><a class="shop" href="#katalog">🛒 Belanja Sekarang</a>
+</nav>
+<section id="home"><div class="hero">
+<h1>Your Product, <span>Our Packaging.</span></h1>
+<p>Bikin produkmu tampil maksimal! Kemasan modern, praktis, aesthetic. 💛</p>
+<p style="font-weight:700;color:#1F1F1F">🌿 Produk lokal, 📦 Kemasan maksimal!</p>
+<div id="heroSvg"></div>
+<button class="btn bg" onclick="document.getElementById('katalog').scrollIntoView()">🛒 Lihat Katalog</button>
+<button class="btn bo" onclick="document.getElementById('ulasan').scrollIntoView()">⭐ Beri Ulasan</button>
+</div></section>
+<section id="katalog">
+<h2>📦 Katalog <span>ARTIPACK</span></h2>
+<p>Pilih paket & ukuran sesuai kebutuhanmu!</p>
+<div id="produkList"></div>
+<div class="free"><h4>🚚 GRATIS ONGKIR! 😊</h4><p>Khusus pembelian <strong>Area Telang & sekitarnya</strong> — Free Ongkir! 💛</p></div>
+</section>
+<section id="bayar">
+<h2>💳 Metode <span>Pembayaran</span></h2>
+<div class="pay"><h4>🚚 COD</h4>
+<div class="row"><span>Metode</span><strong>Bayar saat barang tiba</strong></div>
+<div class="row"><span>Area</span><strong>Area Telang & sekitarnya</strong></div>
+<button class="copy" onclick="wa('Order COD')">💬 Order COD</button></div>
+<div class="pay"><h4>🏦 Transfer Bank BRI</h4>
+<div class="row"><span>Bank</span><strong>BRI</strong></div>
+<div class="row"><span>A/N</span><strong>ANIS LESTARI</strong></div>
+<div class="row"><span>No. Rek</span><strong>656201033791535</strong></div>
+<button class="copy" onclick="salin('656201033791535')">📋 Salin No. Rekening</button></div>
+<div class="pay"><h4>💜 DANA</h4>
+<div class="row"><span>E-Wallet</span><strong>DANA</strong></div>
+<div class="row"><span>A/N</span><strong>FACHIDATUL AZIZAH</strong></div>
+<div class="row"><span>No. HP</span><strong>+6285236509382</strong></div>
+<button class="copy" onclick="salin('+6285236509382')">📋 Salin No. DANA</button></div>
+</section>
+<section id="jam">
+<h2>⏰ Jam <span>Operasional</span></h2>
+<div class="op">
+<div class="st" id="st">Memuat...</div>
+<div class="tm">08.00 - 21.00 WIB</div>
+<p>Senin - Sabtu</p>
+<p>Minggu & libur nasional tutup. 💛</p>
+</div></section>
+<section id="ulasan">
+<h2>⭐ Ulasan <span>Pelanggan</span></h2>
+<p>Ulasanmu akan tersimpan di browser ini & tampil di halaman!</p>
+<div class="statistik"><div class="angka" id="rataRata">0.0</div><div class="ket">⭐ Rata-rata dari <span id="totalUlasan">0</span> ulasan</div></div>
+<div class="admin-bar" id="adminBar">
+<p style="font-weight:800;color:#E56A00;margin-bottom:8px">🔑 Panel Penjual (Anggota Kelompok 6)</p>
+<input type="password" id="passAdmin" placeholder="Masukkan kode admin..." onkeydown="if(event.key==='Enter')cekAdmin()">
+<button onclick="cekAdmin()">🔓 Buka Panel</button>
+<div class="info">Kode rahasia hanya diketahui penjual.</div>
+</div>
+<button class="admin-toggle" onclick="toggleAdmin()">🔒 Login Penjual</button>
+<div class="rating-box">
+<p style="font-weight:700;margin-bottom:6px">Beri Rating Kamu:</p>
+<div class="bintang" id="bintang">
+<span onclick="setRate(1)">⭐</span>
+<span onclick="setRate(2)">⭐</span>
+<span onclick="setRate(3)">⭐</span>
+<span onclick="setRate(4)">⭐</span>
+<span onclick="setRate(5)">⭐</span>
+</div>
+<p id="rateText" style="color:#FF7A00;font-weight:700;margin:8px 0">Belum ada rating</p>
+<input type="text" id="namaUlasan" placeholder="Nama kamu" maxlength="30">
+<textarea id="isiUlasan" placeholder="Tulis ulasanmu..." maxlength="200"></textarea>
+<label for="fotoUlasan" class="foto-input">📷 Pilih Foto (opsional)</label>
+<input type="file" id="fotoUlasan" accept="image/*" style="display:none" onchange="previewFoto(event)">
+<div class="foto-prev" id="fotoPrev"></div>
+<button class="btn bg" style="width:100%" onclick="kirimUlasan()">📩 Kirim Ulasan</button>
+</div>
+<div id="daftarUlasan"></div>
+</section>
+<section id="tentang">
+<h2>🌱 Tentang <span>ARTIPACK</span></h2>
+<p>🌿 Produk lokal, 📦 Kemasan maksimal!</p>
+<div class="kk" style="cursor:default;text-align:left">
+<p style="text-align:left;margin-bottom:12px"><strong>ARTIPACK</strong> merupakan proyek <em>Edusciencepreneur</em> dari kelompok beranggotakan 5 orang. Kami menghadirkan inovasi kemasan plastik klip yang modern, praktis, dan menarik.</p>
+<ul style="list-style:none;margin-top:12px">
+<li style="background:#FFF9F0;padding:10px 16px;border-radius:10px;border-left:5px solid #FF7A00;margin-bottom:6px;font-weight:700">👩 Anis Lestari</li>
+<li style="background:#FFF9F0;padding:10px 16px;border-radius:10px;border-left:5px solid #FF7A00;margin-bottom:6px;font-weight:700">👩 Naila Sopia</li>
+<li style="background:#FFF9F0;padding:10px 16px;border-radius:10px;border-left:5px solid #FF7A00;margin-bottom:6px;font-weight:700">👩 Indah Ayu Nurrohmah</li>
+<li style="background:#FFF9F0;padding:10px 16px;border-radius:10px;border-left:5px solid #FF7A00;margin-bottom:6px;font-weight:700">👩 Fachidatul Azizah</li>
+<li style="background:#FFF9F0;padding:10px 16px;border-radius:10px;border-left:5px solid #FF7A00;margin-bottom:6px;font-weight:700">👩 Habibatus Salwa</li>
+</ul>
+</div></section>
+<section id="kontak">
+<h2>📞 Hubungi <span>Kami</span></h2>
+<div class="kk" onclick="wa('Tanya ARTIPACK')"><h4>💬 WhatsApp</h4><p>085943793412</p></div>
+<div class="kk" onclick="location.href='mailto:anslstr08@gmail.com'"><h4>📧 Email</h4><p>anslstr08@gmail.com</p></div>
+<div class="kk" onclick="window.open('https://maps.google.com/?q=Jalan+Raya+Telang+Kamal+Bangkalan','_blank')"><h4>📍 Alamat</h4><p>Jl. Raya Telang, PO Box 2, Kec. Kamal, Kab. Bangkalan, Madura, Jawa Timur 69162</p></div>
+</section>
+<footer><b>ARTIPACK! 📦</b><p>Project Edusciencepreneur</p><p>© 2026 ARTIPACK</p></footer>
+<button class="cart" onclick="openCart()" type="button">🛒<span class="cc" id="cc">0</span></button>
+<div class="modal" id="modal"><div class="mbox">
+<h3>🛒 Keranjang Kamu</h3>
+<ul class="cl" id="cl"></ul>
+<div class="tt" id="tt">Total: 0 item</div>
+<div class="ca"><button class="bc2" onclick="closeCart()">Tutup</button><button class="bk" onclick="checkout()">💬 Checkout WA</button></div>
+</div></div>
+<script>
+var items=JSON.parse(localStorage.getItem('artipack_items')||'[]');
+var pilihan={};
+var ulasanData=JSON.parse(localStorage.getItem('artipack_ulasan')||'[]');
+var fotoData='';
+var isAdmin=false;
+
+var produk=[
+{id:0,tag:'PAKET 1',nama:'Plastik Ziplock Saja',ikon:'📦',jenis:'ukuran',sizes:['50 gr','100 gr','200 gr','250 gr','300 gr','400 gr','500 gr'],harga:{'50 gr':'Rp500','100 gr':'Rp800','200 gr':'Rp1.200','250 gr':'Rp1.500','300 gr':'Rp1.800','400 gr':'Rp2.200','500 gr':'Rp2.500'},mo:'⚠️ Minimal order 10 pcs'},
+{id:1,tag:'PAKET 2',nama:'Ziplock + Desain Stiker',ikon:'🎨',jenis:'stiker',sizes:['50 gr','100 gr','200 gr','250 gr','300 gr','400 gr','500 gr'],harga:{'50 gr':'Rp3.500','100 gr':'Rp5.000','200 gr':'Rp8.000','250 gr':'Rp15.000','300 gr':'Rp18.000','400 gr':'Rp24.000','500 gr':'Rp30.000'},mo:'⚠️ Minimal order 10 pcs'},
+{id:2,tag:'PAKET 3',nama:'Ziplock + Stiker + Keripik Sukun',ikon:'🍘',jenis:'ukuran',sizes:['50 gr','100 gr','200 gr','250 gr','300 gr','400 gr','500 gr'],harga:{'50 gr':'Rp5.000','100 gr':'Rp10.000','200 gr':'Rp14.000','250 gr':'Rp18.000','300 gr':'Rp22.000','400 gr':'Rp28.000','500 gr':'Rp35.000'},mo:''},
+{id:3,tag:'CUSTOM PACKAGING',nama:'Custom Packaging',ikon:'🎁',jenis:'ukuran',sizes:['Bebas'],harga:{'Bebas':'Rp3.500'},mo:'❌ Tidak menerima Ziplock Sablon — Harga mulai Rp3.500'},
+{id:4,tag:'CUSTOM STIKER',nama:'Custom Stiker',ikon:'🏷️',jenis:'stiker',sizes:['3x3 cm','4x4 cm','5x5 cm','6x6 cm','7x7 cm'],harga:{'3x3 cm':'Rp500','4x4 cm':'Rp800','5x5 cm':'Rp1.200','6x6 cm':'Rp1.500','7x7 cm':'Rp2.000'},mo:'Tulis diameter lain di kolom bawah'}
+];
+
+function svgTas(i,ikon,tag){
+return '<svg viewBox="0 0 240 300"><defs>'+
+'<linearGradient id="p'+i+'" x1="0" y1="0" x2="0.4" y2="1"><stop offset="0%" stop-color="#FFFAF0"/><stop offset="15%" stop-color="#FFE8CC"/><stop offset="55%" stop-color="#FFC078"/><stop offset="100%" stop-color="#E56A00"/></linearGradient>'+
+'<linearGradient id="q'+i+'" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#3a3a3a"/><stop offset="50%" stop-color="#1F1F1F"/><stop offset="100%" stop-color="#050505"/></linearGradient>'+
+'<linearGradient id="s'+i+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.9)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient>'+
+'<linearGradient id="ts'+i+'" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(255,255,255,.55)"/><stop offset="50%" stop-color="rgba(255,255,255,.1)"/><stop offset="100%" stop-color="rgba(255,255,255,.45)"/></linearGradient>'+
+'<linearGradient id="g'+i+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FFE082"/><stop offset="50%" stop-color="#FFC107"/><stop offset="100%" stop-color="#B8860B"/></linearGradient>'+
+'</defs>'+
+'<ellipse cx="120" cy="292" rx="95" ry="9" fill="#000" opacity=".18"/>'+
+'<ellipse cx="120" cy="290" rx="70" ry="5" fill="#FF7A00" opacity=".30"/>'+
+'<rect x="30" y="6" width="180" height="36" rx="8" fill="url(#q'+i+')"/>'+
+'<line x1="48" y1="24" x2="192" y2="24" stroke="url(#g'+i+')" stroke-width="2.5" stroke-dasharray="6 4" stroke-linecap="round"/>'+
+'<rect x="85" y="14" width="70" height="20" rx="6" fill="url(#p'+i+')"/>'+
+'<text x="120" y="28" text-anchor="middle" font-family="Arial" font-size="9" font-weight="900" fill="#fff">ZIP</text>'+
+'<path d="M35 42 Q35 34 42 34 L198 34 Q205 34 205 42 L205 270 Q205 285 190 285 L50 285 Q35 285 35 270 Z" fill="url(#p'+i+')"/>'+
+'<path d="M 45 50 L 90 50 L 75 280 L 52 280 Z" fill="url(#s'+i+')" opacity=".7"/>'+
+'<path d="M35 42 Q35 34 42 34 L198 34 Q205 34 205 42 L205 50 L35 50 Z" fill="url(#ts'+i+')"/>'+
+'<rect x="35" y="110" width="170" height="70" fill="url(#q'+i+')"/>'+
+'<rect x="35" y="110" width="170" height="4" fill="#FFD700" opacity=".55"/>'+
+'<text x="120" y="72" text-anchor="middle" font-family="Georgia,serif" font-size="18" font-style="italic" font-weight="bold" fill="#fff" stroke="#8A3A00" stroke-width="1" paint-order="stroke">ARTIPACK!</text>'+
+'<text x="120" y="160" text-anchor="middle" font-size="62" style="filter:drop-shadow(0 3px 5px rgba(0,0,0,.4))">'+ikon+'</text>'+
+'<rect x="65" y="200" width="110" height="32" rx="16" fill="url(#p'+i+')" stroke="#D96000" stroke-width="2"/>'+
+'<text x="120" y="221" text-anchor="middle" font-family="Arial" font-size="12" font-weight="900" fill="#C75400">'+tag+'</text>'+
+'</svg>';
+}
+
+function renderProduk(){
+var h='';
+for(var i=0;i<produk.length;i++){
+var p=produk[i];
+pilihan[p.id]=p.sizes[0];
+h+='<div class="kartu"><div class="gbr"><span class="tag">'+p.tag+'</span>';
+h+=svgTas(i,p.ikon,p.tag.replace('CUSTOM ',''));
+h+='</div><div class="body"><h3>'+p.nama+'</h3>';
+if(p.jenis==='stiker'){h+='<div class="uk">Pilih ukuran paket & diameter stiker:</div>'}
+else{h+='<div class="uk">Pilih ukuran:</div>'}
+h+='<div class="ukuran">';
+for(var k=0;k<p.sizes.length;k++){
+h+='<button onclick="pilih('+p.id+',\''+p.sizes[k]+'\',this)"'+(k===0?' class="aktif"':'')+'>'+p.sizes[k]+'</button>';
+}
+h+='</div>';
+if(p.jenis==='stiker'){h+='<input type="text" class="diam" id="diam'+p.id+'" placeholder="Diameter stiker (contoh: 4 cm × 6 cm)">'}
+h+='<p style="text-align:center;font-weight:800;color:#E56A00;margin-bottom:12px" id="hrg'+p.id+'">Harga: '+p.harga[p.sizes[0]]+'</p>';
+if(p.mo){h+='<p style="color:#E56A00;font-weight:700;text-align:center;margin-bottom:10px;font-size:.92rem">'+p.mo+'</p>';}
+h+='<button class="tmb bg" onclick="tambah('+p.id+')">🛒 Tambah ke Keranjang</button>';
+h+='<button class="tmb bw" onclick="waPilih('+p.id+')">💬 Order WhatsApp</button>';
+h+='</div></div>';
+}
+document.getElementById('produkList').innerHTML=h;
+}
+
+function pilih(id,uk,btn){
+pilihan[id]=uk;
+var parent=btn.parentElement;
+var btns=parent.querySelectorAll('button');
+for(var i=0;i<btns.length;i++)btns[i].classList.remove('aktif');
+btn.classList.add('aktif');
+document.getElementById('hrg'+id).textContent='Harga: '+produk[id].harga[uk];
+}
+
+var heroSvg='<svg viewBox="0 0 300 420"><defs><linearGradient id="o1" x1="0" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#FFE0B0"/><stop offset="50%" stop-color="#FFB566"/><stop offset="100%" stop-color="#E56A00"/></linearGradient><linearGradient id="dk" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1F1F1F"/><stop offset="100%" stop-color="#3a3a3a"/></linearGradient><linearGradient id="shine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(255,255,255,.95)"/><stop offset="100%" stop-color="rgba(255,255,255,0)"/></linearGradient><linearGradient id="tshine" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="rgba(255,255,255,.6)"/><stop offset="50%" stop-color="rgba(255,255,255,.15)"/><stop offset="100%" stop-color="rgba(255,255,255,.5)"/></linearGradient></defs><ellipse cx="150" cy="415" rx="110" ry="8" fill="#FF7A00" opacity=".25"/><rect x="30" y="6" width="240" height="50" rx="10" fill="url(#dk)"/><line x1="55" y1="31" x2="245" y2="31" stroke="#FF7A00" stroke-width="3" stroke-dasharray="8 6"/><rect x="105" y="18" width="90" height="26" rx="8" fill="url(#o1)"/><text x="150" y="36" text-anchor="middle" font-family="Arial" font-size="12" font-weight="900" fill="#fff">ZIP LOCK</text><path d="M40 58Q40 48 50 48L250 48Q260 48 260 58L260 390Q260 408 240 408L60 408Q40 408 40 390Z" fill="url(#o1)" stroke="#FF7A00" stroke-width="1.5"/><path d="M 60 68 L 120 68 L 100 400 L 70 400 Z" fill="url(#shine)" opacity=".75"/><path d="M40 58Q40 48 50 48L250 48Q260 48 260 58L260 72 L40 72 Z" fill="url(#tshine)"/><rect x="40" y="160" width="220" height="110" fill="url(#dk)"/><text x="150" y="110" text-anchor="middle" font-family="Georgia,serif" font-size="34" font-style="italic" font-weight="bold" fill="#fff">ARTIPACK!</text><text x="150" y="135" text-anchor="middle" font-family="Arial" font-size="9" font-weight="900" fill="#1F1F1F" letter-spacing="3">YOUR PRODUCT • OUR PACKAGING</text><text x="150" y="238" text-anchor="middle" font-size="72">🛍️</text><rect x="75" y="290" width="150" height="46" rx="23" fill="#fff" stroke="#FF7A00" stroke-width="2"/><text x="150" y="320" text-anchor="middle" font-family="Arial" font-size="17" font-weight="900" fill="#C75400">ZIPLOCK PACK</text></svg>';
+function simpan(){localStorage.setItem('artipack_items',JSON.stringify(items))}
+function updateCC(){var t=0;for(var i=0;i<items.length;i++)t+=items[i].qty;document.getElementById('cc').textContent=t}
+function wa(n){window.open('https://wa.me/6285943793412?text='+encodeURIComponent('Halo ARTIPACK! Saya mau order: '+n),'_blank')}
+function waPilih(id){var p=produk[id];var uk=pilihan[id];if(p.jenis==='stiker'){var d=document.getElementById('diam'+id).value.trim();if(d)uk+=' (diameter: '+d+')'}wa(p.nama+' - '+uk+' ('+p.harga[pilihan[id]]+')')}
+function salin(t){navigator.clipboard.writeText(t);alert('Disalin: '+t)}
+
+function tambah(id){
+var p=produk[id];
+var uk=pilihan[id];
+if(p.jenis==='stiker'){var d=document.getElementById('diam'+id).value.trim();if(d)uk+=' (diameter: '+d+')'}
+var idx=-1;
+for(var i=0;i<items.length;i++){if(items[i].id===id&&items[i].uk===uk){idx=i;break}}
+if(idx>-1){items[idx].qty++}else{items.push({id:id,nama:p.nama,uk:uk,hrg:p.harga[pilihan[id]],qty:1})}
+simpan();updateCC();
+alert(p.nama+' - '+uk+' masuk keranjang!');
+}
+
+function openCart(){
+var el=document.getElementById('cl');
+if(items.length===0){el.innerHTML='<li style="justify-content:center;color:#888;padding:20px">Keranjang kosong</li>';document.getElementById('tt').textContent='Total: 0 item'}
+else{
+var h='';
+for(var i=0;i<items.length;i++){
+h+='<li><div class="info"><b>'+items[i].nama+'</b><small>'+items[i].uk+' • '+items[i].hrg+'</small></div>';
+h+='<div class="qty"><button onclick="kurang('+i+')">−</button><span class="jml">'+items[i].qty+'</span><button onclick="plus('+i+')">+</button></div>';
+h+='<button class="del" onclick="hapus('+i+')">×</button></li>';
+}
+el.innerHTML=h;
+var tot=0;for(var j=0;j<items.length;j++)tot+=items[j].qty;
+document.getElementById('tt').textContent=tot+' item';
+}
+document.getElementById('modal').classList.add('show');
+}
+
+function plus(i){items[i].qty++;simpan();updateCC();openCart()}
+function kurang(i){items[i].qty--;if(items[i].qty<=0)items.splice(i,1);simpan();updateCC();openCart()}
+function hapus(i){items.splice(i,1);simpan();updateCC();openCart()}
+function closeCart(){document.getElementById('modal').classList.remove('show')}
+
+function checkout(){
+if(items.length===0){alert('Keranjang kosong');return}
+var d=new Date();
+var tgl=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear();
+var jam=String(d.getHours()).padStart(2,'0')+'.'+String(d.getMinutes()).padStart(2,'0');
+var m='';
+m+='🛒 *PESANAN ARTIPACK*%0A';
+m+='━━━━━━━━━━━━━━━━%0A';
+m+='📅 Tanggal: '+tgl+'%0A';
+m+='🕐 Jam: '+jam+' WIB%0A';
+m+='━━━━━━━━━━━━━━━━%0A%0A';
+m+='📦 *DETAIL PESANAN:*%0A%0A';
+var tot=0;
+for(var i=0;i<items.length;i++){
+m+='*'+(i+1)+'. '+items[i].nama+'*%0A';
+m+='   • Ukuran: '+items[i].uk+'%0A';
+m+='   • Harga: '+items[i].hrg+'%0A';
+m+='   • Jumlah: '+items[i].qty+' pcs%0A';
+m+='   • Subtotal: '+items[i].hrg+' × '+items[i].qty+'%0A%0A';
+tot+=items[i].qty;
+}
+m+='━━━━━━━━━━━━━━━━%0A';
+m+='📊 *TOTAL:* '+tot+' item%0A';
+m+='━━━━━━━━━━━━━━━━%0A%0A';
+m+='Mohon dikonfirmasi ya kak. Terima kasih! 🙏';
+window.open('https://wa.me/6285943793412?text='+m,'_blank');
+}
+
+function cekJam(){var d=new Date();var h=d.getHours();var w=d.getDay();var el=document.getElementById('st');if(el){if(w===0){el.textContent='🔴 TUTUP - Hari Minggu';el.className='st closed'}else if(h>=8&&h<21){el.textContent='🟢 BUKA SEKARANG';el.className='st open'}else{el.textContent='🔴 TUTUP - Buka Jam 08.00';el.className='st closed'}}}
+
+var rating=0;
+function setRate(n){rating=n;var b=document.querySelectorAll('#bintang span');for(var i=0;i<b.length;i++){b[i].classList.toggle('aktif',i<n)}var t=['','Sangat Buruk 😞','Buruk 😕','Biasa 😐','Bagus 😊','Sangat Bagus 🤩'];document.getElementById('rateText').textContent=t[n]}
+
+function previewFoto(e){
+var f=e.target.files[0];
+if(!f){fotoData='';document.getElementById('fotoPrev').innerHTML='';return}
+if(f.size>1500000){alert('Foto terlalu besar (maks 1.5 MB). Coba kompres dulu ya!');e.target.value='';return}
+var r=new FileReader();
+r.onload=function(ev){
+fotoData=ev.target.result;
+document.getElementById('fotoPrev').innerHTML='<img src="'+fotoData+'"><br><button class="hapus-foto" onclick="hapusFoto()">Hapus Foto</button>';
+};
+r.readAsDataURL(f);
+}
+function hapusFoto(){
+fotoData='';
+document.getElementById('fotoUlasan').value='';
+document.getElementById('fotoPrev').innerHTML='';
+}
+
+function tampilUlasan(){
+var el=document.getElementById('daftarUlasan');
+var h='';
+for(var i=0;i<ulasanData.length;i++){
+var u=ulasanData[i];
+h+='<div class="ulasan-item'+(isAdmin?' admin':'')+'">';
+h+='<div class="uh"><span>👤 '+u.nm+'</span><span class="ustars">'+u.bintang+'</span></div>';
+h+='<div class="ut">'+u.isi+'</div>';
+if(u.foto){h+='<div class="ufoto"><img src="'+u.foto+'" onclick="window.open(this.src)"></div>'}
+h+='<div class="uwaktu">'+u.waktu+'</div>';
+if(isAdmin){h+='<button class="btn-hapus-ulasan" onclick="hapusUlasan('+i+')">🗑️ Hapus Ulasan Ini</button>'}
+h+='</div>';
+}
+el.innerHTML=h;
+var tot=0;for(var j=0;j<ulasanData.length;j++)tot+=ulasanData[j].rate;
+var rata=ulasanData.length>0?(tot/ulasanData.length).toFixed(1):'0.0';
+document.getElementById('rataRata').textContent=rata;
+document.getElementById('totalUlasan').textContent=ulasanData.length;
+}
+function toggleAdmin(){
+var bar=document.getElementById('adminBar');
+if(bar.classList.contains('show')){bar.classList.remove('show')}
+else{bar.classList.add('show');document.getElementById('passAdmin').focus()}
+}
+function cekAdmin(){
+var p=document.getElementById('passAdmin').value;
+if(p==='artipack2026'){
+isAdmin=true;
+document.getElementById('adminBar').innerHTML='<p style="font-weight:800;color:#1a7f4b;margin-bottom:6px">✅ Login berhasil sebagai Penjual (Anis Lestari)</p><button onclick="logoutAdmin()" style="background:#ff5c5c;color:#fff;border:none;padding:8px 18px;border-radius:16px;font-weight:800;cursor:pointer;font-family:inherit">🚪 Logout</button>';
+tampilUlasan();
+alert('Login berhasil! Sekarang kamu bisa hapus ulasan pelanggan.');
+}else{
+alert('Kode salah! Hanya penjual yang tahu kode ini.');
+document.getElementById('passAdmin').value='';
+}
+}
+function logoutAdmin(){
+isAdmin=false;
+var bar=document.getElementById('adminBar');
+bar.classList.remove('show');
+bar.innerHTML='<p style="font-weight:800;color:#E56A00;margin-bottom:8px">🔑 Panel Penjual (Anis Lestari)</p><input type="password" id="passAdmin" placeholder="Masukkan kode admin..." onkeydown="if(event.key===\'Enter\')cekAdmin()"><button onclick="cekAdmin()">🔓 Buka Panel</button><div class="info">Kode rahasia hanya diketahui penjual.</div>';
+tampilUlasan();
+}
+function hapusUlasan(i){
+if(!isAdmin){alert('Hanya penjual yang bisa hapus!');return}
+if(!confirm('Yakin hapus ulasan dari "'+ulasanData[i].nm+'"? Tidak bisa dikembalikan.'))return;
+ulasanData.splice(i,1);
+localStorage.setItem('artipack_ulasan',JSON.stringify(ulasanData));
+tampilUlasan();
+alert('Ulasan berhasil dihapus.');
+}
+
+function kirimUlasan(){
+if(rating===0){alert('Pilih bintang dulu ya! ⭐');return}
+var nm=document.getElementById('namaUlasan').value.trim()||'Anonim';
+var isi=document.getElementById('isiUlasan').value.trim()||'(tanpa komentar)';
+var bintang='';for(var i=0;i<rating;i++){bintang+='⭐'}
+var d=new Date();
+var waktu=d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear()+' '+d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+ulasanData.unshift({nm:nm,isi:isi,rate:rating,bintang:bintang,waktu:waktu,foto:fotoData});
+try{localStorage.setItem('artipack_ulasan',JSON.stringify(ulasanData))}catch(e){alert('Storage penuh! Hapus beberapa ulasan lama dulu ya.');ulasanData.shift();try{localStorage.setItem('artipack_ulasan',JSON.stringify(ulasanData))}catch(e2){}}
+tampilUlasan();
+var pesan='⭐ ULASAN ARTIPACK ⭐%0A%0A👤 Nama: '+nm+'%0A⭐ Rating: '+bintang+' ('+rating+'/5)%0A💬 Ulasan: '+isi+'%0A🕐 '+waktu;
+window.open('https://wa.me/6285943793412?text='+pesan,'_blank');
+document.getElementById('namaUlasan').value='';
+document.getElementById('isiUlasan').value='';
+document.getElementById('rateText').textContent='Belum ada rating';
+rating=0;
+hapusFoto();
+document.querySelectorAll('#bintang span').forEach(function(s){s.classList.remove('aktif')});
+}
+
+document.getElementById('heroSvg').innerHTML=heroSvg;
+renderProduk();
+cekJam();
+updateCC();
+tampilUlasan();
+
+function jatuh(emoji,delay,dur,size){
+setTimeout(function(){
+var el=document.createElement('div');
+el.className='falling';
+el.textContent=emoji;
+el.style.left=Math.random()*90+'%';
+el.style.fontSize=size+'rem';
+el.style.animationDuration=dur+'s';
+document.body.appendChild(el);
+setTimeout(function(){el.remove()},dur*1000);
+},delay);
+}
+var emojiJatuh=['🛍️','🎨','📦','🏷️','🛒','✨','💛'];
+for(var j=0;j<7;j++){
+jatuh(emojiJatuh[j], j*300, 3.5+Math.random(), 2.5+Math.random()*1.5);
+}
+</script>
+</body>
+</html>
